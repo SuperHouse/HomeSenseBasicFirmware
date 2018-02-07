@@ -8,7 +8,8 @@
  * BaroSensor library by Angus Gratton
  * DHT12 library by Wemos
  * 
- * www.superhouse.tv
+ * Written by Jonathan Oxer for www.superhouse.tv
+ * https://github.com/superhouse/HomeSenseBasicFirmware
  */
 #include <ESP8266WiFi.h>   // To allow ESP8266 to make WiFi connection
 #include <Wire.h>          // Required for I2C sensors
@@ -27,9 +28,9 @@ const char* mqtt_broker = "192.168.0.123";
 
 // Calibration adjustments for sensors
 const float humidity_adjustment =        0.0;
-const float temperature_adjustment =    -2.0;
+const float temperature_adjustment =     0.0;
 const float pressure_adjustment =        0.0;
-const float temperature_2_adjustment =  -2.0;
+const float temperature_2_adjustment =   0.0;
 
 long lastMsg = 0;
 char msg[75];  // General purpose  buffer for MQTT messages
@@ -53,7 +54,7 @@ void setup() {
   Serial.begin(115200);
   Serial.println();
   Serial.println("===================================");
-  Serial.println("Starting up HomeSense v1.0");
+  Serial.println("Starting up HomeSense Basic v1.0");
 
   // We need a unique device ID for our MQTT client connection
   device_id = String(ESP.getChipId(), HEX);  // Get the unique ID of the ESP8266 chip in hex
@@ -117,7 +118,8 @@ void setup_wifi() {
 /*
  * This callback is invoked when an MQTT message is received. It's not important
  * right now for this project because we don't receive commands via MQTT, so all
- * we do is report any messages to the serial console without acting on them.
+ * we do is report any messages to the serial console without acting on them. You
+ * can modify this function to make the device act on commands that you send it.
  */
 void callback(char* topic, byte* payload, unsigned int length) {
   Serial.print("Message arrived [");

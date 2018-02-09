@@ -24,13 +24,13 @@ unsigned long next_report_time = 0;
 // WiFi setup
 const char* ssid        = "";
 const char* password    = "";
-const char* mqtt_broker = "192.168.0.123";
+const char* mqtt_broker = "192.168.1.111";
 
 // Calibration adjustments for sensors
 const float humidity_adjustment =        0.0;
-const float temperature_adjustment =     0.0;
+const float temperature_adjustment =    -3.0;
 const float pressure_adjustment =        0.0;
-const float temperature_2_adjustment =   0.0;
+const float temperature_2_adjustment =  -3.0;
 
 long lastMsg = 0;
 char msg[75];  // General purpose  buffer for MQTT messages
@@ -191,7 +191,7 @@ void loop() {
       float humidity_value = dht12.humidity + humidity_adjustment;
       Serial.println(humidity_value);
       //printf(msg, "%f", humidityValue);
-      dtostrf(humidity_value, 4, 2, msg); // This is because printf didn't seem to work in Arduino
+      dtostrf(humidity_value, 4, 2, msg);
       client.publish(humidity_topic, msg);
     }
     
@@ -205,13 +205,13 @@ void loop() {
       Serial.print("Pressure:     ");
       float pressure_value = BaroSensor.getPressure() + pressure_adjustment;
       Serial.println(pressure_value);
-      dtostrf(pressure_value, 6, 2, msg); // This is because printf didn't seem to work in Arduino
+      dtostrf(pressure_value, 6, 2, msg);
       client.publish(pressure_topic, msg);
       
       Serial.print("Temperature2: ");
       float temperature_2_value = BaroSensor.getTemperature() + temperature_2_adjustment;
       Serial.println(temperature_2_value);
-      dtostrf(temperature_2_value, 6, 2, msg); // This is because printf didn't seem to work in Arduino
+      dtostrf(temperature_2_value, 4, 2, msg);
       client.publish(temperature_2_topic, msg);
     }
   }

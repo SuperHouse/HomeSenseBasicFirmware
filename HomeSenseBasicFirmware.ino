@@ -12,9 +12,9 @@
  * https://github.com/superhouse/HomeSenseBasicFirmware
  */
 #include <ESP8266WiFi.h>   // To allow ESP8266 to make WiFi connection
-#include <Wire.h>          // Required for I2C sensors
-#include <BaroSensor.h>    // Support for Freetronics BARO module www.freetronics.com.au/baro
-#include <WEMOS_DHT12.h>   // Support for Wemos DHT shield wiki.wemos.cc/products:d1_mini_shields:dht_shield
+#include <Wire.h>          // For I2C sensors
+#include <BaroSensor.h>    // For Freetronics BARO module www.freetronics.com.au/baro
+#include <WEMOS_DHT12.h>   // For Wemos DHT shield wiki.wemos.cc/products:d1_mini_shields:dht_shield
 #include <PubSubClient.h>  // MQTT client
 
 // Set the reporting period in seconds
@@ -137,13 +137,12 @@ void callback(char* topic, byte* payload, unsigned int length) {
  */
 void reconnect() {
   char mqtt_client_id[20];
-  sprintf(mqtt_client_id, "ESP8266-%x", ESP.getChipId());
+  sprintf(mqtt_client_id, "esp8266-%x", ESP.getChipId());
   
   // Loop until we're reconnected
   while (!client.connected()) {
     Serial.print("Attempting MQTT connection...");
     // Attempt to connect
-    //if (client.connect("ESP8266Client-aoeuaoeu")) {
     if (client.connect(mqtt_client_id)) {
       Serial.println("connected");
       // Once connected, publish an announcement...

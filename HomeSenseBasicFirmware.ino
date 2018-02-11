@@ -4,9 +4,9 @@
  * 
  * Uses a DHT12 temperature/humidity sensor and a MS5637-02BA03 pressure/temperature sensor.
  * 
- * Requirements:
- * BaroSensor library by Angus Gratton
- * DHT12 library by Wemos
+ * Dependencies:
+ * - BaroSensor library by Angus Gratton (install through Arduino IDE library manager)
+ * - DHT12 library by Wemos (download from https://github.com/wemos/WEMOS_DHT12_Arduino_Library )
  * 
  * Written by Jonathan Oxer for www.superhouse.tv
  * https://github.com/superhouse/HomeSenseBasicFirmware
